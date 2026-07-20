@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Developer, Builder, and GC Roles Explained</title>
+<meta name="title" content="Developer, Builder, and GC Roles Explained">
+<meta name="dc.title" content="Developer, Builder, and GC Roles Explained">
+<meta name="description" content="Developer vs. general contractor vs. developer-builder: who owns what, who profits from what, and how combining roles aligns incentives.">
+<meta name="keywords" content="Developer, Builder, and GC Roles Explained">
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><link rel="canonical" href="developer-builder-and-gc-roles-explained.html">
+<link rel="stylesheet"  href="https://fonts.googleapis.com/css?family=Kumbh+Sans:100,200,300,400,500,600,700,800,900&amp;display=swap">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="img/" alt="Developer, Builder, and GC Roles Explained" />
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<style type="text/css">
+ 	.c1661d9b3cc24fd1bc8780a515eabff03{
+position: relative;
+min-height: 30px
+}
+.a831ad804203d09b3f4bea9b238bf57c4 .card .card-body p:last-child{
+margin-bottom: 0;
+}
+footer a{
+color:#ffffff;
+text-decoration: underline;
+}
+img{
+border-radius:20px
+}
+.y6d197f522aa53313c987700d4cfc62c8 a,.y069d64b03da49a9a390f1397a7167d29 a{
+color:#070707!important;
+text-decoration: underline !important;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .c4bb81e457650df332872e022d59a2272{
+background:#c1bebe!important;
+}
+.a831ad804203d09b3f4bea9b238bf57c4 .card .card-header .collapsed{
+color: #1b1e6b;
+}
+.df3ae67ba7863e669bac3d334bac1d70a{
+width: 100%;
+max-height: 720px;
+object-fit: cover;
+object-position: center;
+display: block;
+max-height: 100%;
+max-width: 100%;
+margin: auto;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .row-item{
+padding: 3rem;
+padding-top: 3.7rem;
+height: 100%;
+}
+.a831ad804203d09b3f4bea9b238bf57c4 .card .card-body{
+padding: 1.75rem 2rem;
+}
+.f20aec722d23a7cef5acd27a8c4d09f8e{
+font-size: 14.3px;
+}
+.zed43f4da0a7c764742a69bdb6e82131c{
+color: #484848;
+}
+.a831ad804203d09b3f4bea9b238bf57c4 .card .card-header .collapsed span{
+-webkit-transform: rotate(-180deg);
+transform: rotate(-180deg);
+}
+.x2c781778d7b930581cee4e2556441f77{
+transition: all 0.3s;
+border-radius: 30px;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .row-item.c4bb81e457650df332872e022d59a2272{
+background: #c7c4c4;
+}
+.a74f113562d9e531bbfacfdbcfc328665{
+font-size:16px!important;
+color: #6e6e6e;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .row-item.zf1b3e79a4f1ad530c3bf7f716d87932a{
+background: #fdeae8;
+}
+.y6d197f522aa53313c987700d4cfc62c8{
+background:#efede9;
+color:#070707;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .t0e593c628ba5e89b30c4b59676dfaf4a{
+background:#eae8e4!important ;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .row-item.t0e593c628ba5e89b30c4b59676dfaf4a{
+background: #fbf9f5;
+}
+.a831ad804203d09b3f4bea9b238bf57c4 .card{
+position: relative;
+z-index: 1;
+margin-bottom: 1.5rem;
+}
+.c05aa081bf76c294067515187b3b58053{
+font-size: 2rem !important;
+}
+.t0e593c628ba5e89b30c4b59676dfaf4a *{
+color:#000000;
+}
+iframe{
+border: none!important;
+}
+.x1dc362deec959c91ebd0015d0cbeaefc{
+background:#eae8e4!important ;
+}
+.d0ec96dea35b4d682e4d70ee943732b72{
+background: rgba(0, 0, 0, 0.6);
+text-align: center;
+}
+.y6d197f522aa53313c987700d4cfc62c8 p,.y6d197f522aa53313c987700d4cfc62c8 a,.y6d197f522aa53313c987700d4cfc62c8 span,.y6d197f522aa53313c987700d4cfc62c8 label{
+font-size:16px!important;
+}
+.a831ad804203d09b3f4bea9b238bf57c4 .card .card-header span{
+font-size: 1.5rem;
+}
+.y069d64b03da49a9a390f1397a7167d29 *{
+color:#131313!important;
+}
+.x2c781778d7b930581cee4e2556441f77:hover{
+box-shadow: 0 50.4px 50.5px -25px rgb(0 0 0 / 30%);
+transform: rotate(-2deg) scale(1.03);
+}
+.a831ad804203d09b3f4bea9b238bf57c4{
+position: relative;
+z-index: 1;
+}
+a:hover{
+color:#ffffff;background:#ffc658!important;
+}
+.a831ad804203d09b3f4bea9b238bf57c4 .card .card-header{
+cursor: pointer;
+padding: 1.75rem 2rem;
+color: #3f43fd;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-align: center;
+-ms-flex-align: center;
+-ms-grid-row-align: center;
+align-items: center;
+-webkit-box-pack: justify;
+-ms-flex-pack: justify;
+justify-content: space-between;
+}
+.navbar a{
+font-size: 18.1px!important;
+font-weight: bold;
+}
+.y069d64b03da49a9a390f1397a7167d29 a{
+font-size:16px;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .zf1b3e79a4f1ad530c3bf7f716d87932a *{
+color:#000000;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .xddc083bfd431d9f08d83f1ea954c2bff{
+margin-bottom: 1.5rem;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .card-img{
+margin-bottom: 1.7rem;
+text-align: left;
+}
+.f6a6c334cef94c31e603b41568dcbc058 h4{
+font-size:24px!important;
+}
+.x1dc362deec959c91ebd0015d0cbeaefc a{
+color:#fe7f15!important;
+}
+.btn-md{
+padding: 15px 29.6px;
+border-radius: 0;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .x1dc362deec959c91ebd0015d0cbeaefc{
+background:#bcd9df!important;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .row-item.x1dc362deec959c91ebd0015d0cbeaefc{
+background: #c2dfe5;
+}
+*{
+font-family: 'Kumbh Sans', sans-serif;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .x1dc362deec959c91ebd0015d0cbeaefc *{
+color:#000000;
+}
+.nav-link{
+color: #000000;
+
+}
+a{
+text-decoration: none;
+}
+footer *{
+font-size:16px !important;
+}
+.zf1b3e79a4f1ad530c3bf7f716d87932a a{
+color:#ff9026!important;
+}
+footer{
+background:#040404;
+color:#ffffff;
+}
+body{
+color: #363636;
+}
+.y069d64b03da49a9a390f1397a7167d29 p,.y069d64b03da49a9a390f1397a7167d29 span,.y069d64b03da49a9a390f1397a7167d29 label{
+font-size:16px!important;
+}
+.nav-item{
+padding-left:8.5px;
+padding-right:7.9px;
+padding-top:4.7px;
+padding-bottom:5.3px;
+}
+html{
+scroll-behavior: smooth;
+}
+.w70eae760f0a2d78e249f54244da0d1ae{
+background-color: #141414;
+font-size: 30.4px;
+height: 56.3px;
+min-width: 55.7px;
+padding: 0.7rem;
+padding-top: 12.9px;
+color: #fff !important;
+border: 1px solid #131313;
+border-radius: 50%;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .zf1b3e79a4f1ad530c3bf7f716d87932a{
+background:#eddad8!important;
+}
+.f4a94865ead27434256d5a8ffcee6c4f6{
+text-decoration: underline!important;color:#ff8016!important
+}
+.w6a39cc9886f9589a8e474e1dd4dc76e7{
+color: #9d9d9d;
+font-size: 20.2px;
+margin-bottom: 21.2px;
+}
+.wf70a8d73413c4a60923090436f78ebbf i:hover{
+background: white;
+color: #ffffff;!important;
+line-height: 35px;
+border-radius: 50%;
+width: 37.4px;
+text-align: center;
+height: 37.4px;
+}
+.z09ce78d4657331c590b33507adc98478:hover,.w25f67524107632834a3f01e64b5fb990:hover{
+background-size: 100% 100% !important;
+background: #ffc658!important;
+background-repeat: no-repeat !important;
+background-position: 0 90% !important;
+transition: background-size 0.2s ease-in !important;
+}
+.c4bb81e457650df332872e022d59a2272 a{
+color:#fe7f15!important;
+}
+.b03dcb27fb5e6b95f5e8a157428f3193b{
+position: relative;
+z-index: 1;
+}
+.w25f67524107632834a3f01e64b5fb990{
+font-weight: inherit;
+background-image: linear-gradient(120deg, #ffce60 0%, #ffc759 100%);
+background-repeat: no-repeat;
+background-size: 100% 30%;
+background-position: 0 90%;
+transition: background-size 0.2s ease-in;
+}
+.y069d64b03da49a9a390f1397a7167d29{
+background:#ffffff;
+}
+.f6a6c334cef94c31e603b41568dcbc058 p,.{special_content1_class} a,.f6a6c334cef94c31e603b41568dcbc058 label{
+font-size:16px!important;
+}
+.a831ad804203d09b3f4bea9b238bf57c4 .card:last-child{
+margin-bottom: 0;
+}
+.wf70a8d73413c4a60923090436f78ebbf i{
+border-radius: 50%;
+width: 37px;
+line-height: 35px;
+text-align: center;
+height: 37.4px;
+}
+.w97d278995d2d3df8b68a5b093f7a2395{
+background-color:#ffc107!important;
+border-color:#ffc107!important;
+color:#000000!important;
+}
+.ydf059b3446ed717b73f44201b783930c{
+font-size: 20.1px;
+font-weight: bold;
+}
+.xcee35c604b0bf834ec20450d9e6cb1af{
+max-height: 300px;
+overflow-y: auto;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .t0e593c628ba5e89b30c4b59676dfaf4a *{
+color:#000000;
+}
+.d0ec96dea35b4d682e4d70ee943732b72 *{
+color: white !important;
+}
+.f6a6c334cef94c31e603b41568dcbc058 .c4bb81e457650df332872e022d59a2272 *{
+color:#000000;
+}
+.w73983c4f9916ea48d0a848229528e16d{
+font-size:45px!important;
+}
+.ecfeaa4121bb09beeb12e00bdd72307a1{
+font-size: 45px!important;
+}
+.navbar-toggler span{
+display: flex;
+align-items: center;
+justify-content: center;
+border: 1px solid lightgrey;
+border-radius: 3px;
+}
+.t0e593c628ba5e89b30c4b59676dfaf4a a{
+color:#ff8319!important;
+}
+ </style>
+<style type="text/css"> 
+   .parallax-background {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    min-height: 500px; /* Adjust as needed */
+    width: 100%;
+    overflow: hidden;
+
+    border-radius: 20px;
+}
+
+
+.parallax-content {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding:20px 40px;
+    margin: 50px auto; /* Creates space for parallax effect */
+    max-width: 80%;
+    border-radius: 5px;
+    position: relative;
+    z-index: 2;
+}
+.img-fluid{
+	max-height: 400px
+}
+@media only screen and (max-width:1000px) {
+.c1661d9b3cc24fd1bc8780a515eabff03 img{
+position: initial!important;
+}
+
+.w73983c4f9916ea48d0a848229528e16d {
+font-size: 20px;
+}
+.w6a39cc9886f9589a8e474e1dd4dc76e7 {
+font-size: 15px !important;
+}
+.xa32a6c4f44b7254cc87b5dcef55991ac{
+padding-bottom: 0px !important;
+}
+} 
+.content-image-below {
+    margin: 20px 0;
+    text-align: center;
+}
+.image-align-left ol,.image-align-left ul{
+  margin-left: 51%;
+}
+ 
+/* For background image */
+.content-with-bg-image {
+    background-size: cover;
+    background-position: center;
+    padding: 40px;
+    position: relative;
+}
+
+.content-over-bg {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+}
+.content-image-below img,.content-with-side-images img,{
+	max-height: 500px!important;
+
+}
+ 
+ 
+
+/* Text container */
+.text-container {
+    flex: 0 0 60%;
+    max-width: 60%;
+    padding: 0 1rem;
+}
+ 
+
+ /* Main content container */
+.content-with-side-images {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Headers should always be full width */
+.content-with-side-images h4 {
+    width: 100%;
+    clear: both;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+/* Regular paragraphs should be full width by default */
+.content-with-side-images p {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+/* Image-text pair container */
+.image-text-pair {
+    width: 100%;
+    margin:  0px 0;
+   
+}
+
+/* Image container - floated */
+.image-container {
+    width: 50%;
+    
+    box-sizing: border-box;
+ 
+}
+.image-container img:hover{
+
+box-shadow: 0 49.6px 50.3px -25px rgb(0 0 0 / 30%);
+    transform: rotate(-2deg) scale(1.03);
+}
+.image-container img{
+transition: all 0.3s;
+}
+
+/* Left-aligned image */
+.image-align-left .image-container {
+    float: left;
+    margin-right: 20px;
+    margin-left: 0;
+    padding-right: 40px;
+}
+
+/* Right-aligned image */
+.image-align-right .image-container {
+    float: right;
+    margin-left: 20px;
+    margin-right: 0;
+
+    padding-left: 40px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+ 
+
+/* Clearfix */
+.clearfix {
+    clear: both;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+    .image-container {
+        width: 100%;
+        float: none !important;
+        margin: 0 0 20px 0 !important;
+        padding: 0;
+    }
+    
+    .text-flow {
+        display: block;
+    }
+} 
+  
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0px;
+    left: 100%;
+    margin-top: -16px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+  
+}
+
+/* Smart positioning for right-edge dropdowns */
+.dropdown-menu-right .dropdown-submenu>.dropdown-menu,
+.nav-item:last-child .dropdown-submenu>.dropdown-menu,
+.nav-item:nth-last-child(2) .dropdown-submenu>.dropdown-menu {
+    left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: -1px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+/* For left-positioned dropdowns, reverse the arrow */
+.dropdown-menu-right .dropdown-submenu>a:after,
+.nav-item:last-child .dropdown-submenu>a:after,
+.nav-item:nth-last-child(2) .dropdown-submenu>a:after {
+    float: left;
+    border-width: 5px 5px 5px 0;
+    border-left-color: transparent;
+    border-right-color: #ccc;
+    margin-left: -10px;
+    margin-right: 0;
+}
+
+.dropdown-menu-right .dropdown-submenu:hover>a:after,
+.nav-item:last-child .dropdown-submenu:hover>a:after,
+.nav-item:nth-last-child(2) .dropdown-submenu:hover>a:after {
+    border-right-color: #fff;
+    border-left-color: transparent;
+}
+ 
+
+.multi-column-dropdown .dropdown-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .multi-column-dropdown {
+      
+        width: 100%;
+    }
+    
+    .dropdown-submenu>.dropdown-menu {
+        position: static;
+        margin: 0;
+        border: none;
+        box-shadow: none;
+    }
+}
+
+/* Use hover only where it exists */
+@media (hover:hover) {
+  .dropdown-submenu:hover > .dropdown-menu { display:block; }
+}
+
+/* Nested dropdowns should show when .show is present (Bootstrap only sets this for top-level) */
+.dropdown-menu .dropdown-menu { display:none; }
+.dropdown-menu .dropdown-menu.show { display:block; }
+
+/* Mobile layout: stack submenus and remove weird offsets */
+@media (max-width: 991.98px) {
+  .dropdown-menu {
+    position: static;          /* keeps the menu within the flow so it won't render off-screen */
+    float: none;
+    margin: 0;
+    box-shadow: none;
+    border: 0;
+  }
+  .dropdown-submenu > .dropdown-menu {
+    margin-left: 0;
+    max-height: 60vh;          /* scroll if long */
+    overflow-y: auto;
+  }
+}
+
+</style>
+<script type='application/ld+json'> 
+{
+"@context": "http://www.schema.org",
+"@type": "LocalBusiness","url": "builder-led-delivery-of-multi-family-a-primer.html",
+"address": {
+"@type": "PostalAddress"} }
+</script>
+<script type="application/ld+json">
+{
+"@type": "WebPage",
+"@context": "http://www.schema.org","lastReviewed": "2021-12-01",
+"mainContentOfPage": {
+"about": {"url": "developer-builder-and-gc-roles-explained.html","name": "","description": "",
+"disambiguatingDescription": ""},
+"accessibilitySummary": ""},
+"keywords": [""],
+"award": ["Best "],
+"teaches": [""],
+"educationalUse": [""],
+"text": [""],
+"workExample": {
+"about": {"url": "developer-builder-and-gc-roles-explained.html"
+}
+},
+"citation": {
+"@type": "CreativeWork",
+"about": {
+"url": "developer-builder-and-gc-roles-explained.html"}
+},
+"hasPart":[
+]
+}
+</script> 
+</head>
+
+<body><nav class="navbar navbar-expand-lg">
+<a class="navbar-brand" href="builder-led-delivery-of-multi-family-a-primer.html"  ></a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon  fa fa-bars"></span></button><div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav align-items-center ml-auto d-flex">        
+            <!-- Show all double menus if within limit -->
+                                <li class="dropdown dropdown-hover nav-item">
+                <a class="nav-link z09ce78d4657331c590b33507adc98478 dropdown-toggle" href="javascript:;" id="navbarDropdown0" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Multi-Family Builder-Led Delivery                </a>
+                <div class="dropdown-menu-right   dropdown-menu" aria-labelledby="navbarDropdown0">
+                                                                    <a class="dropdown-item" href="builder-led-delivery-of-multi-family-a-primer.html" >
+                            Builder-Led Delivery of Multi-Family: A Primer                        </a>
+                                                                    <a class="dropdown-item" href="design-build-for-multi-family-construction.html" >
+                            Design-Build for Multi-Family Construction                        </a>
+                                                                    <a class="dropdown-item" href="developer-builder-and-gc-roles-explained.html" >
+                            Developer, Builder, and GC Roles Explained                        </a>
+                                                                    <a class="dropdown-item" href="construction-loans-and-draw-schedules-explained.html" >
+                            Construction Loans and Draw Schedules Explained                        </a>
+                                                                    <a class="dropdown-item" href="project-phasing-and-certificate-of-occupancy.html" >
+                            Project Phasing and Certificate of Occupancy                        </a>
+                                    </div>
+            </li>
+            
+    </ul>
+</div>
+</nav>
+<div class="container-fluid "><div class="pt-5 pb-5 container">
+<div class="row">
+<div class="col-lg-12 pt-5 pb-5 text-center" id="">
+<h1 class="w73983c4f9916ea48d0a848229528e16d mb-0">Developer, Builder, and GC Roles Explained</h1></div><div class=" m-auto col-lg-12">
+<div class="content">
+
+<style type="text/css">.guide-article pfont-size:18px;line-height:1.75;margin:0 0 1.4em;.guide-article h2font-size:30px;margin-top:1.6em;.guide-article h3font-size:23px;margin-top:1.4em;.guide-article h4font-size:19px;margin-top:1.2em; </style> <div class="guide-article"> <p><em>By the Editorial Team | Published: July 2026 | Last Updated: July 2026</em></p> <h2>Who Does What in a Multi-Family Project</h2> <p>Confusion about who is responsible for what causes more friction on development projects than almost any technical problem. The roles have overlapping names - developer, builder, general contractor, developer-builder - and in different projects the same word can mean different things. Sorting them out is not academic: the role structure determines who carries which risk, who profits from what, and where the decisions actually get made. Understanding the distinct functions, and how they combine in different delivery models, is foundational to reading how any multi-family project is organized.</p> <h2>The Developer: Origin and Risk</h2> <p>The developer is the entity that makes the project happen. This is the party that identifies the opportunity, controls the land, secures the entitlements, arranges the financing, and carries the financial risk - and, if the project succeeds, captures the profit. The developer owns the vision and the outcome; everyone else is engaged to serve it. Critically, the developer's role is about capital and coordination, not swinging hammers: a developer can be a person, a partnership, or an institution, and many successful developers never physically build anything, instead assembling and directing the teams that do.</p> <h2>The General Contractor: Building the Building</h2> <p>The general contractor, or GC, is the party responsible for the physical construction. The GC holds the construction contract, manages the subcontractors and trades, schedules and sequences the work, controls the site, and delivers the finished structure. On a traditional project the GC is a separate firm the developer hires after the design is complete. The GC's expertise is execution - turning drawings into a building on schedule and on budget - and its profit comes from managing that construction efficiently, distinct from the developer's profit on the project as a whole.</p> <div class="content-image-below"><img class="img-fluid" src="img/architectural-model-floor-plan-markups-site-window.jpg" /></div> <table style="border-collapse:collapse;width:100%;margin:12px 0;font-size:17px;line-height:1.5;"> <tbody> <tr> <th style="border:1px solid #999999;background:#3d3d3d;color:#ffffff;padding:9px 12px;text-align:left;">Role</th> <th style="border:1px solid #999999;background:#3d3d3d;color:#ffffff;padding:9px 12px;text-align:left;">Owns</th> <th style="border:1px solid #999999;background:#3d3d3d;color:#ffffff;padding:9px 12px;text-align:left;">Profits from</th> </tr> <tr> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">Developer</td> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">Land, financing, entitlements, the outcome</td> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">The project's overall success</td> </tr> <tr> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">General contractor</td> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">The construction contract and site</td> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">Managing construction efficiently</td> </tr> <tr> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">Subcontractors</td> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">Their specific trade scope</td> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">Their trade work</td> </tr> <tr> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">Developer-builder</td> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">Both the project and the construction</td> <td style="border:1px solid #999999;padding:9px 12px;text-align:left;vertical-align:top;">Both - combined margins, aligned incentives</td> </tr> </tbody> </table> <h2>The Developer-Builder: One Party, Aligned Incentives</h2> <p>The developer-builder combines the two primary roles: the same firm that originates and owns the project also constructs it, holding both the developer's risk and the general contractor's execution responsibility. This alignment is the model's defining advantage. In separated delivery, the developer wants the lowest construction cost and the GC wants the highest construction profit - a built-in tension negotiated through the contract. When one firm is both, that tension disappears; every construction decision is made by the party that also owns the finished building and will live with its quality, its lease-up, and its reputation. The developer-builder profits from doing the whole thing well rather than from winning one side of an internal negotiation.</p> <h2>Why the Structure Matters to a Project</h2> <p>The role structure shapes behavior. Separated roles bring specialization and an arm's-length check but also friction at every interface, where each party optimizes its own piece. Combined roles bring alignment and speed but concentrate responsibility, so the combined firm's competence and integrity matter enormously. Neither is universally right - a first-time developer may need a strong independent GC's expertise, while an experienced developer-builder captures efficiencies no separated team can. What matters is understanding which structure a project uses, because it predicts where the decisions get made and whose interests drive them. That structural choice is a central part of the builder-led delivery decision that shapes a project from the start.</p> <h2>Frequently Asked Questions</h2> <h3>What is the difference between a developer and a general contractor?</h3> <p>The developer originates and owns the project - controlling land, financing, and entitlements and carrying the risk - while the general contractor builds it, holding the construction contract and managing the trades. The developer profits from the project's success; the GC profits from managing construction efficiently.</p> <h3>What is a developer-builder?</h3> <p>A firm that combines both primary roles: it originates and owns the project and also constructs it, holding the developer's risk and the contractor's execution responsibility together. This aligns incentives, since the party building the project also owns and lives with the finished result.</p> <div class="content-image-below"><img class="img-fluid" src="img/framing-inspection-clipboard-hard-hat-rough-in.jpg" /></div> <p> </p> <h3>Does the developer physically build anything?</h3> <p>Usually not directly - the developer's role is capital and coordination, assembling and directing the teams that design and build. Many successful developers never construct anything themselves, engaging general contractors and designers to execute their vision.</p> <h3>Why does combining roles align incentives?</h3> <p>In separated delivery the developer wants low construction cost and the GC wants high construction profit, a built-in tension. When one firm is both, that tension disappears - every construction decision is made by the party that also owns the finished building and its long-term performance.</p> <h3>What do subcontractors do?</h3> <p>Subcontractors perform specific trade scopes - framing, plumbing, electrical, and so on - under the general contractor, who coordinates and schedules them. They profit from their trade work, while the GC profits from managing the overall construction.</p> <h3>Is a developer-builder always better than separate parties?</h3> <p>No - combined roles bring alignment and speed but concentrate responsibility, so the firm's competence matters greatly. A first-time developer may benefit from a strong independent contractor's expertise, while an experienced developer-builder captures efficiencies separated teams cannot.</p> <h3>How does the role structure affect a project's decisions?</h3> <p>It determines where decisions get made and whose interests drive them. Separated roles add specialization and an arm's-length check but create friction at each handoff; combined roles add alignment and speed but rely on one firm's integrity. Knowing the structure predicts how the project will behave.</p> <h3>What is a construction manager, and how does that role fit in?</h3> <p>A construction manager advises the developer on cost, schedule, and constructability during design, then often builds the project under a guaranteed price - a role that sits between the fully separated general contractor and the combined developer-builder. It brings construction expertise in early, like an integrated model, while keeping the construction manager as a distinct party the developer engages. It is a common middle path for developers who want early builder input without merging the roles entirely.</p> <h3>Do developer-builders need both a developer's and a contractor's license?</h3> <p>Typically the construction side must hold the appropriate contractor licensing required in the jurisdiction, since that is regulated, while "developer" is a business role rather than a licensed profession. A developer-builder therefore operates under the construction licenses its building arm carries, plus whatever registrations local law requires, and confirming that licensing is in order is part of vetting any firm that claims to do both.</p> </div> <p><a class="ab23a490aeecb83f77f24471d25515e5c" href="construction-loans-and-draw-schedules-explained.html">Construction Loans and Draw Schedules Explained</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><footer>
+<div class="pt-5 py-4 container" >
+<div class="row"><div class="col-lg-3"><p><a class="z09ce78d4657331c590b33507adc98478" href="sitemap.html" rel="nofollow">Sitemap</a></p>
+</p>
+</div></div>
+</div>
+</footer>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+var dropdowns = document.querySelectorAll('.dropdown-hover');
+function showDropdown() {
+var dropdownMenu = this.querySelector('.dropdown-menu');
+dropdownMenu.style.display = 'block';
+}
+function hideDropdown() {
+var dropdownMenu = this.querySelector('.dropdown-menu');
+dropdownMenu.style.display = 'none';
+}
+function handleClick(event) {
+var target = event.target;
+window.location.href = target.getAttribute('href');
+}
+dropdowns.forEach(function(dropdown) {
+dropdown.addEventListener('mouseenter', showDropdown);
+dropdown.addEventListener('mouseleave', hideDropdown);
+var dropdownMenu = dropdown.querySelector('.dropdown-toggle');
+dropdownMenu.addEventListener('click', handleClick);
+});
+});
+</script>
+ <script>
+(function() {
+  // Works with both BS4 (data-toggle events) and BS5
+  var $ = window.jQuery;
+
+  // Toggle nested submenu on click/tap
+  $(document).on('click', '.dropdown-submenu > a', function(e) {
+    var $toggle = $(this);
+    var $submenu = $toggle.next('.dropdown-menu');
+
+    // If there isn't a submenu, behave like a normal link
+    if (!$submenu.length) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Close sibling submenus at the same level
+    $toggle.parent('.dropdown-submenu')
+      .siblings('.dropdown-submenu')
+      .find('>.dropdown-menu.show')
+      .removeClass('show');
+
+    // Toggle this submenu
+    $submenu.toggleClass('show');
+
+    // Keep parent dropdown open
+    $toggle.closest('.dropdown-menu').addClass('show');
+
+    // Accessibility state
+    $toggle.attr('aria-expanded', $submenu.hasClass('show') ? 'true' : 'false');
+  });
+
+  // When the top-level dropdown closes, close all nested submenus
+  $(document).on('hidden.bs.dropdown', '.dropdown', function() {
+    $(this).find('.dropdown-menu.show').removeClass('show');
+  });
+})();
+</script>
+</body>
+</html>
